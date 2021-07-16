@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Ficticious Demo Website">
+  <meta name="author" content="No One">
+
+  <title>Abalone Fishing Logistics</title>
+
+  <!--- Other Stylesheets-->
+  <link rel="stylsheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/main-page.css" rel="stylesheet">
+
+  <!-- Bootstrap core JavaScript --->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.135.0.min.js"></script>
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Abalone Fishing Logistics</a>
+      <!--- Remove Navbar toggle and replace with Form Button --->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" id="contactUs" href="#contactModal" data-toggle="modal">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </nav>
+
+  <header class="masthead text-center text-white">
+    <div class="masthead-content">
+      <div class="container">
+        <h1 class="masthead-heading mb-0">Abalone Fishing Logistics</h1>
+        <h2 class="masthead-subheading mb-0">Preventing Abalone Overfishing</h2>
+          <a href="#calculatorModal" id="calculatorButton" data-toggle="modal" class="btn btn-primary btn-xl rounded-pill mt-5">Try Our Age Caclulator</a>
+      </div>
+    </div>
+  </header>
+
+  <!--- Calculator Form Modal -->
+  <div class="modal fade" id="calculatorModal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!--- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title" id="calculatorModalTitle">Calculate Abalone Age</h4>
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+          </button>
+        </div>
+        <!--- Modal Body -->
+        <div class="modal-body">
+          <form role="form" id="calculatorForm">
+            <p>Please enter the details about the <b>Abalone</b> in order to predict the age.</p>
+            <div class="form-group">
+              <label for="calculatorModalLength"><b>Length:</b></label>
+              <input type="text" id="calculatorModalLength" name="calculatorModalLength" placeholder="0.455" />
+            </div>
+            <div class="form-group">
+              <label for="calculatorModalDiameter"><b>Diameter:</b></label>
+              <input type="text" id="calculatorModalDiameter" name="calculatorModalDiameter" placeholder="0.365" />
+            </div>
+            <div class="form-group">
+              <label for="calculatorModalHeight"><b>Height:</b></label>
+              <input type="text" id="calculatorModalHeight" name="calculatorModalHeight" placeholder="0.095" />
+            </div>
+            <div class="form-group">
+              <label for="calculatorModalWholeWeight"><b>Whole Weight:</b></label>
+              <input type="text" id="calculatorModalWholeWeight" name="calculatorModalWholeWeight" placeholder="0.514" />
+            </div>
+            <div class="form-group">
+              <label for="calculatorModalShuckedWeight"><b>Shucked Weight:</b></label>
+              <input type="text" id="calculatorModalShuckedWeight" name="calculatorModalShuckedWeight" placeholder="0.2245" />
+            </div>
+            <div class="form-group">
+              <label for="calculatorModalVisceraWeight"><b>Viscera Weight:</b></label>
+              <input type="text" id="calculatorModalVisceraWeight" name="calculatorModalVisceraWeight" placeholder="0.101" />
+            </div>
+            <div class="form-group">
+              <label for="calculatorModalShellWeight"><b>Shell Weight:</b></label>
+              <input type="text" id="calculatorModalShellWeight" name="calculatorModalShellWeight" placeholder="0.15" />
+            </div>
+            <div class="form-group">
+              <label for="calculatorModalSex"><b>Abalone Sex:</b></label>
+              <input type="text" id="calculatorModalSex" name="calculatorModalSex" placeholder="M" />
+            </div>
+            <!-- <div class="form-group">
+              <label for="calculatorModalSexF"><b>Female:</b></label>
+              <input type="text" id="calculatorModalSexF" name="calculatorModalSexF" placeholder="1" />
+            </div>
+            <div class="form-group">
+              <label for="calculatorModalSexI"><b>Infant:</b></label>
+              <input type="text" id="calculatorModalSexI" name="calculatorModalSexI" placeholder="0" />
+            </div>
+            <div class="form-group">
+              <label for="calculatorModalSexM"><b>Male:</b></label>
+              <input type="text" id="calculatorModalSexM" name="calculatorModalSexM" placeholder="0" />
+            </div> -->
+          </form>
+        </div>
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary submitBtn" onclick="submitPredictForm()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Form Modal -->
+  <div class="modal fade" id="contactModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title" id="contactModalTitle">Contact Form</h4>
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+          </button>
+        </div>
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form role="form" id="contactForm">
+            <div class="form-group">
+              <label for="contactModalEmail"><b>Email Address:</b></label>
+              <input type="text" class="form-control" id="contactModalEmail" placeholder="Enter your email"/>
+            </div>
+            <div class="form-group">
+              <label for="contactModalQuestionText"><b>Message:</b></label>
+              <textarea class="form-control" id="contactModalQuestionText" placeholder="Enter your message"></textarea>
+            </div>
+          </form>
+        </div>
+        <!--- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary submitBtn" onclick="submitContactForm()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--- Prediction Modal -->
+  <div id="predictionModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="predictionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!--- Modal Header -->
+        <div class="modal-header">
+          <h4 id="predictionModalLabel">Age Prediction</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="javascript:window.location.reload()">×</button>
+        </div>
+        <!--- Modal Body -->
+        <div class="modal-body"></div>
+        <!--- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal" aria-hidden="true" onclick="javascript:window.location.reload()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div id="confirmationModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!--- Modal Header -->
+        <div class="modal-header">
+          <h4 id="confirmationModalLabel">Confirmation</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="javascript:window.location.reload()">×</button>
+        </div>
+        <!--- Modal Body -->
+        <div class="modal-body"></div>
+        <!--- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal" aria-hidden="true" onclick="javascript:window.location.reload()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 order-lg-2">
+          <div class="p-5">
+            <img class="img-fluid rounded-circle" src="img/creative-people-working-together.jpg" alt="">
+          </div>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+          <div class="p-5">
+            <h2 class="display-4">Who are we?</h2>
+            <p>We are an organization thst strives to prevent the overfishing of the white abalone snail. We do this by using cutting edge, predictive Artifical Intelligence <b>(A.I.)</b> technologies to help abalone fishermen determine wether or not their catch meets the age requiremnts for capture.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <div class="p-5">
+            <img class="img-fluid rounded-circle" src="img/white-abalone.PNG" alt="">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="p-5">
+            <h2 class="display-4">Our Mission!</h2>
+            <p>The white abalone snail has been overfished to the verge of extinction. However, by using <b><a href="https://operational-machine-learning-pipeline.workshop.aws/" style="color:#ff06ac" target="_blank">Machine Learning</a></b>, we hope to save the species by helping fishermen determine the correct age to return them back into the wild.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 order-lg-2">
+          <div class="p-5">
+            <img class="img-fluid rounded-circle" src="img/wild-abalone.PNG" alt="">
+          </div>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+          <div class="p-5">
+            <h2 class="display-4">What is an Abalone?</h2>
+            <p>The white <a href="https://en.wikipedia.org/wiki/Abalone" target="_blank" style="color:#ff06ac">abalone</a> <b>(Haliotis sorenseni)</b> was once common in kelp forests off the coast of Southern California and Mexico, and has been harvested by humans for around 10,000 years.</p>
+            <p>It plays an important role in the kelp forest ecosystem, competing with other algal grazers such as sea urchins and keeping their numbers under control.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-5 bg-black">
+    <div class="container">
+      <p class="m-0 text-center text-white small">Copyright &copy; Ficticious Demo Website 2021</p>
+    </div>
+  </footer>
+
+</body>
+
+<script>
+
+  // Submit the Calculator Form to the HTTP API
+  function submitPredictForm() {
+    $("#calculatorModal").modal("hide");
+    var length = $("#calculatorModalLength").val();
+    var diameter = $("#calculatorModalDiameter").val();
+    var height = $("#calculatorModalHeight").val();
+    var wholeWeight = $("#calculatorModalWholeWeight").val();
+    var shuckedWeight = $("#calculatorModalShuckedWeight").val();
+    var visceraWeight = $("#calculatorModalVisceraWeight").val();
+    var shellWeight = $("#calculatorModalShellWeight").val();
+    var sex = $("#calculatorModalSex").val();
+    var data = {
+      "length" : length,
+      "diameter" : diameter,
+      "height" : height,
+      "wholew_weight" : wholeWeight,
+      "shucked_weight" : shuckedWeight,
+      "viscera_weight" : visceraWeight,
+      "shell_weight" : shellWeight,
+      "sex": sex,
+    };
+    // Debug capture//
+    console.log(data);
+    $("#calculatorForm").trigger("reset");
+    // Submit the Form Data
+    $.ajax({
+      type : "POST",
+      url : "/api/predict",
+      dataType : "json",
+      crossDomain : "true",
+      contentType : "application/json; charset=UTF-8",
+      data : JSON.stringify(data),
+      success : function (data) {
+        console.log(data);
+        // Open prediction modal
+        $("div.modal-body").html(data.message);
+        $("#predictionModal").modal("show");
+      },
+      error : function (data, status, err ) {
+        console.log("Something went wrong", status, err );
+      }
+    });
+  }
+
+  // Submit the Contact Form to the HTTP API
+  function submitContactForm() {
+    $("#contactModal").modal("hide");
+    var emailAddress = $("#contactModalEmail").val();
+    var questionText = $("#contactModalQuestionText").val();
+    var data = {
+      "email" : emailAddress,
+      "question" : questionText,
+    };
+    // Submit the form
+    $("#contactForm").trigger("reset");
+    $.ajax({
+      type : "POST",
+      url : "/api/contact",
+      dataType : "json",
+      crossDomain : "true",
+      contentType : "application/json; charset=UTF-8",
+      data: JSON.stringify(data),
+      success : function (data) {
+        console.log(data);
+        // Open the confirmation modal
+        $("div.modal-body").html(data.message);
+        $("#confirmationModal").modal("show");
+      },
+      error : function (data, status, err ) {
+        console.log( "Something went wrong", status, err );
+      }
+    });
+  }
+
+</script>
+
+</html>
