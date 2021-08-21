@@ -388,7 +388,7 @@ class PipelineStack(cdk.Stack):
                         },
                         "build": {
                             "commands": [
-                                "echo synthesizing cdk template",
+                                "echo Synthesizing cdk template",
                                 "npx cdk synth -o output"
                             ]
                         },
