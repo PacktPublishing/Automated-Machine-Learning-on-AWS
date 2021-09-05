@@ -1,0 +1,30 @@
+version: 0.2
+env:
+  variables:
+    DATA_PREFIX: abalone_data
+    EPOCHS: 200
+    BATCH_SIZE: 8
+    THRESHOLD: 2.1
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - printenv
+      - echo "Updating Build Environment"
+      - apt-get update
+      - python -m pip install --upgrade pip
+      - python -m pip install --upgrade boto3 awscli sagemaker==2.49.1 stepfunctions==2.2.0
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo "Creating ML Workflow "
+      - |
+        sh -c """
+        cd workflow/
+        python main.py
+        """
+  post_build:
+    commands:
+      - echo "Build Completed"
