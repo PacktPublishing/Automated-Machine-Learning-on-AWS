@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 
+import os
 from aws_cdk import core as cdk
 from mlops_pipeline.mlops_pipeline_stack import PipelineStack
 
 # Set the account to execute the MLOps Pipeline
-PIPELINE_ACCOUNT = '500842391574'
+PIPELINE_ACCOUNT = os.getenv('CDK_DEFAULT_ACCOUNT')
+
+# Set the MLOps Pipeline Region
+PIPELINE_REGION = os.getenv('CDK_DEFAULT_REGION')
 
 # Set the name of the ML Model being operationalized
 MODEL = 'abalone'
@@ -25,7 +29,7 @@ PipelineStack(
     'mlops-pipeline',
     env={
         'account': PIPELINE_ACCOUNT,
-        'region': 'us-east-2'
+        'region': PIPELINE_REGION
     },
     model_name=MODEL,
     group_name=MODEL_GROUP,

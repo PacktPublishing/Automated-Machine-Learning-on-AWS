@@ -11,12 +11,6 @@ from dev_applicaiton_stack import DevApplicationStack
 from prod_applicaiton_stack import ProdApplicationStack
 
 
-# # Specify the account that will host the DEV/TEST version of the applicaiton
-# DEV_ACCOUNT_ID = '500842391574'
-
-# # Specify the acoount that will host the Production verion of the applicaiton
-# PROD_ACCOUNT_ID = '500842391574'
-
 class MLWorkflowStage(cdk.Stage):
     def __init__(self, scope: cdk.Construct, id: str, *, group_name: str, threshold: float,**kwargs):
         super().__init__(scope, id, **kwargs)
