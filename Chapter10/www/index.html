@@ -297,49 +297,49 @@
     });
   }
 
-  // // Submit the Calculator Form to the HTTP API
-  // function submitPredictForm() {
-  //   $("#calculatorModal").modal("hide");
-  //   var length = $("#calculatorModalLength").val();
-  //   var diameter = $("#calculatorModalDiameter").val();
-  //   var height = $("#calculatorModalHeight").val();
-  //   var wholeWeight = $("#calculatorModalWholeWeight").val();
-  //   var shuckedWeight = $("#calculatorModalShuckedWeight").val();
-  //   var visceraWeight = $("#calculatorModalVisceraWeight").val();
-  //   var shellWeight = $("#calculatorModalShellWeight").val();
-  //   var sex = $("#calculatorModalSex").val();
-  //   var data = {
-  //     "length" : length,
-  //     "diameter" : diameter,
-  //     "height" : height,
-  //     "wholew_weight" : wholeWeight,
-  //     "shucked_weight" : shuckedWeight,
-  //     "viscera_weight" : visceraWeight,
-  //     "shell_weight" : shellWeight,
-  //     "sex": sex,
-  //   };
-  //   // Debug capture//
-  //   console.log(data);
-  //   $("#calculatorForm").trigger("reset");
-  //   // Submit the Form Data
-  //   $.ajax({
-  //     type : "POST",
-  //     url : "/api/predict",
-  //     dataType : "json",
-  //     crossDomain : "true",
-  //     contentType : "application/json; charset=UTF-8",
-  //     data : JSON.stringify(data),
-  //     success : function (data) {
-  //       console.log(data);
-  //       // Open prediction modal
-  //       $("div.modal-body").html(data.message);
-  //       $("#predictionModal").modal("show");
-  //     },
-  //     error : function (data, status, err ) {
-  //       console.log("Something went wrong", status, err );
-  //     }
-  //   });
-  // }
+  // Submit the Calculator Form to the HTTP API
+  function submitPredictForm() {
+    $("#calculatorModal").modal("hide");
+    var length = $("#calculatorModalLength").val();
+    var diameter = $("#calculatorModalDiameter").val();
+    var height = $("#calculatorModalHeight").val();
+    var wholeWeight = $("#calculatorModalWholeWeight").val();
+    var shuckedWeight = $("#calculatorModalShuckedWeight").val();
+    var visceraWeight = $("#calculatorModalVisceraWeight").val();
+    var shellWeight = $("#calculatorModalShellWeight").val();
+    var sex = $("#calculatorModalSex").val();
+    var data = {
+      "length" : length,
+      "diameter" : diameter,
+      "height" : height,
+      "wholew_weight" : wholeWeight,
+      "shucked_weight" : shuckedWeight,
+      "viscera_weight" : visceraWeight,
+      "shell_weight" : shellWeight,
+      "sex": sex,
+    };
+    // Debug capture//
+    console.log(data);
+    $("#calculatorForm").trigger("reset");
+    // Submit the Form Data
+    $.ajax({
+      type : "POST",
+      url : "/api/predict",
+      dataType : "json",
+      crossDomain : "true",
+      contentType : "application/json; charset=UTF-8",
+      data : JSON.stringify(data),
+      success : function (data) {
+        console.log(data);
+        // Open prediction modal
+        $("div.modal-body").html(data.message);
+        $("#predictionModal").modal("show");
+      },
+      error : function (data, status, err ) {
+        console.log("Something went wrong", status, err );
+      }
+    });
+  }
 
 </script>
 
