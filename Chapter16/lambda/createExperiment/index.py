@@ -55,9 +55,9 @@ sm = boto3.client('sagemaker')
 
 
 def lambda_handler(event, context):
-    logger.debug('-- Environment Variables --')
+    logger.debug("## Environment Variables ##")
     logger.debug(os.environ)
-    logger.debug('-- Event --')
+    logger.debug("## Event ##")
     logger.debug(event)
     logger.info('Creating SageMaker Experiment')
 

@@ -11,10 +11,9 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 def lambda_handler(event, context):
-    logger.debug(f'Boto3 Version: {boto3.__version__}')
-    logger.debug('-- Environment Variables --')
+    logger.debug("## Environment Variables ##")
     logger.debug(os.environ)
-    logger.debug('-- Event --')
+    logger.debug("## Event ##")
     logger.debug(event)
 
     # Ensure variables passed from Model Evaluation Step

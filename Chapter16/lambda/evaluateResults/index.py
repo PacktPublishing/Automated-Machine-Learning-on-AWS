@@ -12,10 +12,10 @@ s3 = boto3.client('s3')
 ssm = boto3.client('ssm')
 sm = boto3.client('sagemaker')
 
-def handler(event, context):
-    logger.debug('-- Environment Variables --')
+def handler_handler(event, context):
+    logger.debug("## Environment Variables ##")
     logger.debug(os.environ)
-    logger.debug('-- Event --')
+    logger.debug("## Event ##")
     logger.debug(event)
 
     # Ensure variables are passed from the step payload
