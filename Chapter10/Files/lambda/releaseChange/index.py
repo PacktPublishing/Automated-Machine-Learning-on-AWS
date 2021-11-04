@@ -17,11 +17,15 @@ def lambda_handler(event, context):
     pipeline_name = os.environ["PIPELINE_NAME"]
     logger.info(f"Starting Coninuous Training release change for {pipeline_name}")
     try:
-        reponse = cp.start_pipeline_execution(
+        response = cp.start_pipeline_execution(
             name=pipeline_name
         )
-        logger.info(f'Release Change ExecutionId: {reponse["pipelineExecutionId"]}')
+        logger.info(f'Release Change ExecutionId: {response["pipelineExecutionId"]}')
     except ClientError as e:
         error_message = e.response["Error"]["Message"]
         logger.error(error_message)
         raise Exception(error_message)
+    return {
+        "statusCode": 200,
+        "ExecutionId": response["pipelineExecitionId"]
+    }

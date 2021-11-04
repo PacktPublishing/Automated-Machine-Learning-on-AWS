@@ -1,0 +1,6 @@
+sagemaker==2.49.1
+s3fs==0.5.1
+boto3>=1.17.4
+numpy
+pandas
+sklearn

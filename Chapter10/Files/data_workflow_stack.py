@@ -239,3 +239,12 @@ class DataWorkflowStack(cdk.Stack):
             )
         )
         start_pipeline.grant_invoke(airflow_role)
+
+        lambda_param = ssm.StringParameter(
+            self,
+            "Release-Change-Parameter",
+            parameter_name="ReleaseChangeLambda",
+            description="SSM Parameter for the releaseChange Lambda Function",
+            string_value=start_pipeline.function_name
+        )
+        lambda_param.grant_read(airflow_role)
