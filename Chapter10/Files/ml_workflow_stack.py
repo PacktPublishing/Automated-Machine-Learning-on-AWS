@@ -241,7 +241,8 @@ class MLWorkflowStack(cdk.Stack):
                 },
                 'Environment': {
                     'MODEL_NAME.$': '$.input.model_name',
-                    'AWS_REGION': cdk.Aws.REGION
+                    'AWS_REGION': cdk.Aws.REGION,
+                    'GROUP_NAME': group_name
                 },
                 'ExperimentConfig':{
                     'ExperimentName.$': '$.createExperiment.Payload.experimentName',
