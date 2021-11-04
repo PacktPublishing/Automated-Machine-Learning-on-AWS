@@ -18,7 +18,6 @@ def lambda_handler(event, context):
     logger.debug(event)
     logger.info('Creating SageMaker Experiment')
 
-    # Ensure variables are passed from the invocation inputs
     if ("modelName" in event):
         model_name = event["modelName"]
     else:
@@ -91,7 +90,7 @@ def get_executionId(pipeline_name, stage_name, action_name):
 
 def create_experiment(model_name, execution_id):
     experiment_name = f"{model_name.capitalize()}Experiments"
-    trial_name = f"{model_name.capitalize()}-{execution_id}""
+    trial_name = f"{model_name.capitalize()}-{execution_id}"
     logger.info("Getting list of SageMaker Experiments")
     try:
         response = sm.list_experiments(
@@ -109,7 +108,7 @@ def create_experiment(model_name, execution_id):
         try:
             response = sm.create_experiment(
                 ExperimentName=experiment_name,
-                Description=f"Training Experiments for {model_name}"",
+                Description=f"Training Experiments for {model_name}",
             )
             logger.info(f"Created SageMaker Experiment: {experiment_name}")
         except ClientError as e:
