@@ -31,46 +31,6 @@ class DataWorkflowStack(cdk.Stack):
             string_parameter_name="FeatureGroup"
         )
 
-        vpc = ec2.Vpc(
-            self,
-            "Airflow-VPC",
-            cidr="10.0.0.0/16",
-            max_azs=2,
-            subnet_configuration=[
-                ec2.SubnetConfiguration(
-                    name="AirflowPublicSubnet",
-                    subnet_type=ec2.SubnetType.PUBLIC,
-                    cidr_mask=24
-                ),
-                ec2.SubnetConfiguration(
-                    name="AirflowPrivateSubnet",
-                    subnet_type=ec2.SubnetType.PRIVATE,
-                    cidr_mask=24
-                )
-            ],
-            nat_gateways=2,
-            enable_dns_hostnames=True,
-            enable_dns_support=True
-        )
-
-        airflow_sg = ec2.SecurityGroup(
-            self,
-            "Airflow-SG",
-            vpc=vpc,
-            description="Airflow Internal Traffic",
-            security_group_name=f"{airflow_environment_name}-sg"
-        )
-        airflow_sg.connections.allow_internally(ec2.Port.all_traffic(), "MWAA")
-
-        airflow_subnet_ids = list(map(lambda x: x.subnet_id, vpc.private_subnets))
-
-        airflow_network = mwaa.CfnEnvironment.NetworkConfigurationProperty(
-            security_group_ids=[
-                airflow_sg.security_group_id
-            ],
-            subnet_ids=airflow_subnet_ids
-        )
-
         airflow_policy_document = {
             "Version": "2012-10-17",
             "Statement": [
@@ -177,6 +137,46 @@ class DataWorkflowStack(cdk.Stack):
         data_bucket.grant_read_write(airflow_role)
         data_bucket_param.grant_read(airflow_role)
         group_name_param.grant_read(airflow_role)
+
+        vpc = ec2.Vpc(
+            self,
+            "Airflow-VPC",
+            cidr="10.0.0.0/16",
+            max_azs=2,
+            subnet_configuration=[
+                ec2.SubnetConfiguration(
+                    name="AirflowPublicSubnet",
+                    subnet_type=ec2.SubnetType.PUBLIC,
+                    cidr_mask=24
+                ),
+                ec2.SubnetConfiguration(
+                    name="AirflowPrivateSubnet",
+                    subnet_type=ec2.SubnetType.PRIVATE,
+                    cidr_mask=24
+                )
+            ],
+            nat_gateways=2,
+            enable_dns_hostnames=True,
+            enable_dns_support=True
+        )
+
+        airflow_sg = ec2.SecurityGroup(
+            self,
+            "Airflow-SG",
+            vpc=vpc,
+            description="Airflow Internal Traffic",
+            security_group_name=f"{airflow_environment_name}-sg"
+        )
+        airflow_sg.connections.allow_internally(ec2.Port.all_traffic(), "MWAA")
+
+        airflow_subnet_ids = list(map(lambda x: x.subnet_id, vpc.private_subnets))
+
+        airflow_network = mwaa.CfnEnvironment.NetworkConfigurationProperty(
+            security_group_ids=[
+                airflow_sg.security_group_id
+            ],
+            subnet_ids=airflow_subnet_ids
+        )
         
         airflow_emvironment = mwaa.CfnEnvironment(
             self,
