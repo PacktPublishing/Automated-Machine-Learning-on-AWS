@@ -16,6 +16,7 @@ PipelineStack(
     app,
     CODECOMMIT_REPOSITORY,
     env=cdk.Environment(account=os.getenv("CDK_DEFAULT_ACCOUNT"), region=os.getenv("CDK_DEFAULT_REGION")),
+    model_name=MODEL,
     repo_name=CODECOMMIT_REPOSITORY,
     group_name=MODEL_GROUP,
     feature_group=FEATURE_GROUP,

@@ -536,4 +536,5 @@ class MLWorkflowStack(cdk.Stack):
             role=step_functions_role,
             timeout=cdk.Duration.minutes(60)
         )
-        cdk.CfnOutput(self, "StateMachineArn", value=workflow.state_machine_arn)
+        
+        self.sfn_output = cdk.CfnOutput(self, "StateMachine-Arn", value=workflow.state_machine_arn)
