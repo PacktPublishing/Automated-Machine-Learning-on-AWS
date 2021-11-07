@@ -46,7 +46,7 @@ class MLWorkflowStack(cdk.Stack):
             self,
             "Baseline-Data-Paramater",
             description="Baseline Data S3 URI",
-            parameter_name="BaselineDataURI",
+            parameter_name="BaselineDataUri",
             string_value="PLACEHOLDER"
         )
 
