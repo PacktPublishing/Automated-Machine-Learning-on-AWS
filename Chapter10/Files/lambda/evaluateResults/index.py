@@ -13,7 +13,7 @@ ssm = boto3.client("ssm")
 sm = boto3.client("sagemaker")
 
 
-def handler_handler(event, context):
+def lambda_handler(event, context):
     logger.debug("## Environment Variables ##")
     logger.debug(os.environ)
     logger.debug("## Event ##")
