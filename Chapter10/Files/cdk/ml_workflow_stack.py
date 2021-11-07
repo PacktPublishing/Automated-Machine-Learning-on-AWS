@@ -307,9 +307,7 @@ class MLWorkflowStack(cdk.Stack):
                     'TrialComponentDisplayName': 'Training'
                 },
                 'HyperParameters': {
-                    'epochs': '2000',
-                    'layers': '2',
-                    'dense_layer': '64',
+                    'epochs': '200',
                     'batch_size': '8'
                 },
                 'InputDataConfig': [
