@@ -135,7 +135,7 @@ class MLWorkflowStack(cdk.Stack):
             runtime=lambda_.Runtime.PYTHON_3_8,
             code=lambda_.Code.from_asset(os.path.join(os.path.dirname(__file__), "../../lambda/evaluateResults")),
             environment={
-                "PACKAGE_PRAMETER": package_paramter.parameter_name,
+                "PACKAGE_PARAMETER": package_paramter.parameter_name,
                 "BUCKET": data_bucket.bucket_name
             },
             memory_size=128,
