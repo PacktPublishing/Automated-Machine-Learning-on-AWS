@@ -1,14 +1,13 @@
-import json
 import os
 import logging
 import boto3
 from botocore.exceptions import ClientError
 
-
 sm = boto3.client("sagemaker")
 ssm = boto3.client("ssm")
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
+
 
 def lambda_handler(event, context):
     logger.debug("## Environment Variables ##")

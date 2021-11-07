@@ -207,7 +207,7 @@ class DataWorkflowStack(cdk.Stack):
             self,
             "Deploy-Airflow-Artifacts",
             sources=[
-                s3_deployment.Source.asset(os.path.join(os.path.dirname(__file__), "../airflow"))
+                s3_deployment.Source.asset(os.path.join(os.path.dirname(__file__), "../../airflow"))
             ],
             destination_bucket=data_bucket,
             destination_key_prefix="airflow",
@@ -220,7 +220,7 @@ class DataWorkflowStack(cdk.Stack):
             "Release-Change",
             handler="index.lambda_handler",
             runtime=lambda_.Runtime.PYTHON_3_8,
-            code=lambda_.Code.from_asset(os.path.join(os.path.dirname(__file__), "../lambda/releaseChange")),
+            code=lambda_.Code.from_asset(os.path.join(os.path.dirname(__file__), "../../lambda/releaseChange")),
             environment={
                 "PIPELINE_NAME": pipeline_name
             },

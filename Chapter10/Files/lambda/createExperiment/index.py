@@ -1,5 +1,4 @@
 import os
-import json
 import logging
 import boto3
 import botocore
@@ -116,7 +115,7 @@ def create_experiment(model_name, execution_id):
             logger.error(error_message)
             raise Exception(error_message)
 
-    logger.info(f'Creating Associated SageMaker Trial')
+    logger.info(f"Creating Associated SageMaker Trial")
     try:
         response = sm.create_trial(
             ExperimentName=experiment_name,

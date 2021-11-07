@@ -27,7 +27,7 @@ class MLWorkflowStack(cdk.Stack):
             self,
             "Deploy-Scripts",
             sources=[
-                s3_deployment.Source.asset(os.path.join(os.path.dirname(__file__), "../scripts"))
+                s3_deployment.Source.asset(os.path.join(os.path.dirname(__file__), "../../scripts"))
             ],
             destination_bucket=data_bucket,
             destination_key_prefix="scripts",
@@ -53,7 +53,7 @@ class MLWorkflowStack(cdk.Stack):
         model_image = ecr_assets.DockerImageAsset(
             self,
             "Model-Image",
-            directory=os.path.join(os.path.dirname(__file__), "../model")
+            directory=os.path.join(os.path.dirname(__file__), "../../model")
         )
 
         registry_creator = lambda_.Function(
@@ -61,7 +61,7 @@ class MLWorkflowStack(cdk.Stack):
             "Registry-Creator",
             handler="index.lambda_handler",
             runtime=lambda_.Runtime.PYTHON_3_8,
-            code=lambda_.Code.from_asset(os.path.join(os.path.dirname(__file__), "../lambda/registryCreator")),
+            code=lambda_.Code.from_asset(os.path.join(os.path.dirname(__file__), "../../lambda/registryCreator")),
             memory_size=128,
             timeout=cdk.Duration.seconds(120)
         )
@@ -111,7 +111,7 @@ class MLWorkflowStack(cdk.Stack):
             "Experiment-Creator",
             handler="index.lambda_handler",
             runtime=lambda_.Runtime.PYTHON_3_8,
-            code=lambda_.Code.from_asset(os.path.join(os.path.dirname(__file__), "../lambda/createExperiment")),
+            code=lambda_.Code.from_asset(os.path.join(os.path.dirname(__file__), "../../lambda/createExperiment")),
             memory_size=128,
             timeout=cdk.Duration.seconds(120)
         )
@@ -133,7 +133,7 @@ class MLWorkflowStack(cdk.Stack):
             "Evaluate-Results",
             handler="index.lambda_handler",
             runtime=lambda_.Runtime.PYTHON_3_8,
-            code=lambda_.Code.from_asset(os.path.join(os.path.dirname(__file__), "../lambda/evaluateResults")),
+            code=lambda_.Code.from_asset(os.path.join(os.path.dirname(__file__), "../../lambda/evaluateResults")),
             environment={
                 "PACKAGE_PRAMETER": package_paramter.parameter_name,
                 "BUCKET": data_bucket.bucket_name
@@ -158,7 +158,7 @@ class MLWorkflowStack(cdk.Stack):
             "Register-Model",
             handler="index.lambda_handler",
             runtime=lambda_.Runtime.PYTHON_3_8,
-            code=lambda_.Code.from_asset(os.path.join(os.path.dirname(__file__), "../lambda/registerModel")),
+            code=lambda_.Code.from_asset(os.path.join(os.path.dirname(__file__), "../../lambda/registerModel")),
             environment={
                 "GROUP_NAME": group_name,
                 "BUCKET": data_bucket.bucket_name,
