@@ -19,7 +19,7 @@ region_name = sagemaker_session.boto_region_name
 data_bucket = f"""{boto3.client("ssm", region_name=region_name).get_parameter(Name="DataBucket")["Parameter"]["Value"]}"""
 data_prefix = "abalone_data"
 lambda_function = f"""{boto3.client("ssm", region_name=region_name).get_parameter(Name="ReleaseChangeLambda")["Parameter"]["Value"]}"""
-fg_name = f"""{boto3.client("ssm", region_name=region_name).get_parameter(Name="FeatureGroup")["Parameter"]["vlaue"]}"""
+fg_name = f"""{boto3.client("ssm", region_name=region_name).get_parameter(Name="FeatureGroup")["Parameter"]["value"]}"""
 default_args = {
     "owner": "airflow",
     "depends_on_past": False,
