@@ -16,10 +16,10 @@ from airflow.providers.amazon.aws.sensors.s3_prefix import S3PrefixSensor
 
 sagemaker_session = sagemaker.Session()
 region_name = sagemaker_session.boto_region_name
-data_bucket = f"""{boto3.client("ssm", region_name=region_name).get_parameter(Name="DataBucket")["Parameter"]["Value"]}"""
 data_prefix = "abalone_data"
+data_bucket = f"""{boto3.client("ssm", region_name=region_name).get_parameter(Name="DataBucket")["Parameter"]["Value"]}"""
 lambda_function = f"""{boto3.client("ssm", region_name=region_name).get_parameter(Name="ReleaseChangeLambda")["Parameter"]["Value"]}"""
-fg_name = f"""{boto3.client("ssm", region_name=region_name).get_parameter(Name="FeatureGroup")["Parameter"]["value"]}"""
+fg_name = f"""{boto3.client("ssm", region_name=region_name).get_parameter(Name="FeatureGroup")["Parameter"]["Value"]}"""
 default_args = {
     "owner": "airflow",
     "depends_on_past": False,
@@ -52,7 +52,7 @@ def update_feature_group():
     time_stamp = int(round(time.time()))
     processed_data["TimeStamp"] = pd.Series([time_stamp] * len(processed_data), dtype="float64")
     fg.ingest(data_frame=processed_data, max_workers=5, wait=True)
-    sleep(3600)
+    sleep(300)
 
 
 with DAG(
@@ -69,17 +69,17 @@ with DAG(
         prefix=data_prefix,
         dag=dag
     )
-
+    
     update_fg_task = PythonOperator(
         task_id="update_fg",
         python_callable=update_feature_group,
         dag=dag
     )
-
+    
     trigger_release = PythonOperator(
         task_id="trigger_release_change",
         python_callable=start_pipeline,
         dag=dag
     )
-
-    s3_trigger >> update_feature_group >> trigger_release
+    
+    s3_trigger >> update_fg_task >> trigger_release
