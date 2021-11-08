@@ -27,5 +27,5 @@ def lambda_handler(event, context):
         raise Exception(error_message)
     return {
         "statusCode": 200,
-        "ExecutionId": response["pipelineExecitionId"]
+        "ExecutionId": response["pipelineExecutionId"]
     }

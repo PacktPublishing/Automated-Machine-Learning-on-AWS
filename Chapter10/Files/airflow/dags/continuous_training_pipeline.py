@@ -40,7 +40,7 @@ def start_pipeline():
     )
     request = hook.invoke_lambda(payload="null")
     response = json.loads(request["Payload"].read().decode())
-    print(f'ExecutionId: {response["ExecutionId"]}')
+    print(f"Response: {response}")
 
 
 def update_feature_group():
