@@ -76,10 +76,10 @@ with DAG(
         dag=dag
     )
     
-    trigger_release = PythonOperator(
+    trigger_release_task = PythonOperator(
         task_id="trigger_release_change",
         python_callable=start_pipeline,
         dag=dag
     )
     
-    s3_trigger >> update_fg_task >> trigger_release
+    s3_trigger >> update_fg_task >> trigger_release_task
