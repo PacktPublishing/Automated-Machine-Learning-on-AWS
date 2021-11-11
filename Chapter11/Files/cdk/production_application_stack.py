@@ -106,7 +106,7 @@ class ProductionApplicaitonStack(cdk.Stack):
                 sagemaker.CfnEndpointConfig.ProductionVariantProperty(
                     initial_instance_count=2,
                     initial_variant_weight=1.0,
-                    instance_type="ml.m5.large",
+                    instance_type="ml.c5.large",
                     model_name=model.attr_model_name,
                     variant_name="AllTraffic"
                 )
