@@ -87,7 +87,7 @@ def handle_predict(request):
         logger.info(f"SageMaker Endpoint Prediction: {prediction}")
         logger.debug(type(prediction))
         rings = round(int(prediction))
-        age = rings * 1.5
+        age = rings + 1.5
         return HTTPStatus.OK, json.dumps(
             {
                 "message": f"We\'ve calcuated that the Abalone has <b>{rings}</b> rings, and is therefore approximately <b>{age}</b> years old."
