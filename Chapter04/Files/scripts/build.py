@@ -41,23 +41,6 @@ def get_model_artifact(name=None):
         raise Exception(error)
 
 
-def handle_status(task=None, job_name=None):
-    if task == "preprocess" or task == "evaluate":
-        status = sagemaker_client.describe_processing_job(ProcessingJobName=job_name)["ProcessingJobStatus"]
-        while status == "InProgress":
-            time.sleep(60)
-            logger.info(f"Task: {task},  Status: {status}")
-            status = sagemaker_client.describe_processing_job(ProcessingJobName=job_name)["ProcessingJobStatus"]
-        return status
-    elif task == "train":
-        status = sagemaker_client.describe_training_job(TrainingJobName=job_name)["TrainingJobStatus"]
-        while status == "InProgress":
-            time.sleep(60)
-            logger.info(f"Task: {task}, Status: {status}")
-            status = sagemaker_client.describe_training_job(TrainingJobName=job_name)["TrainingJobStatus"]
-        return status
-
-
 def handle_data(model_name=None, execution_id=None):
     try:
         response = sagemaker_client.create_processing_job(
@@ -243,6 +226,23 @@ def handle_evaluation(model_name=None, execution_id=None):
         error = e.response["Error"]["Message"]
         logger.error(error)
         raise Exception(error)
+
+
+def handle_status(task=None, job_name=None):
+    if task == "preprocess" or task == "evaluate":
+        status = sagemaker_client.describe_processing_job(ProcessingJobName=job_name)["ProcessingJobStatus"]
+        while status == "InProgress":
+            time.sleep(60)
+            logger.info(f"Task: {task},  Status: {status}")
+            status = sagemaker_client.describe_processing_job(ProcessingJobName=job_name)["ProcessingJobStatus"]
+        return status
+    elif task == "train":
+        status = sagemaker_client.describe_training_job(TrainingJobName=job_name)["TrainingJobStatus"]
+        while status == "InProgress":
+            time.sleep(60)
+            logger.info(f"Task: {task}, Status: {status}")
+            status = sagemaker_client.describe_training_job(TrainingJobName=job_name)["TrainingJobStatus"]
+        return status
 
 
 if __name__ == "__main__":
