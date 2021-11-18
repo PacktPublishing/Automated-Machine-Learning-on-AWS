@@ -31,6 +31,16 @@ def get_execution_id(name=None, task=None):
         raise Exception(error)
 
 
+def get_model_artifact(name=None):
+    try:
+        response = sagemaker_client.describe_training_job(TrainingJobName=name)
+        return response["ModelArtifacts"]["S3ModelArtifacts"]
+    except ClientError as e:
+        error = e.response["Error"]["Message"]
+        logger.error(error)
+        raise Exception(error)
+
+
 def handle_status(task=None, job_name=None):
     if task == "preprocess" or task == "evaluate":
         status = sagemaker_client.describe_processing_job(ProcessingJobName=job_name)["ProcessingJobStatus"]
@@ -46,16 +56,6 @@ def handle_status(task=None, job_name=None):
             logger.info(f"Task: {task}, Status: {status}")
             status = sagemaker_client.describe_training_job(TrainingJobName=job_name)["TrainingJobStatus"]
         return status
-
-
-def get_model_artifact(name=None):
-    try:
-        response = sagemaker_client.describe_training_job(TrainingJobName=name)
-        return response["ModelArtifacts"]["S3ModelArtifacts"]
-    except ClientError as e:
-        error = e.response["Error"]["Message"]
-        logger.error(error)
-        raise Exception(error)
 
 
 def handle_data(model_name=None, execution_id=None):
