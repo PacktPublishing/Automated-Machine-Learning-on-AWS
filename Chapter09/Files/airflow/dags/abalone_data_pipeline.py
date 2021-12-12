@@ -17,7 +17,8 @@ from airflow.providers.amazon.aws.hooks.lambda_function import AwsLambdaHook
 from airflow.operators.python_operator import BranchPythonOperator
 from airflow.operators.dummy import DummyOperator
 
-region_name = "<Add AWS Region>"
+sagemaker_seesion = sagemaker.Session()
+region_name = sagemaker_seesion.boto_region_name
 model_name = "abalone"
 data_prefix = "abalone_data"
 data_bucket = f"""{boto3.client("ssm", region_name=region_name).get_parameter(Name="AirflowDataBucket")["Parameter"]["Value"]}"""
