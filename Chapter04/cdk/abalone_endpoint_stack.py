@@ -1,9 +1,9 @@
 import os
-import aws_cdk.core as cdk
+import aws_cdk as cdk
 import aws_cdk.aws_sagemaker as sagemaker
 
 class EndpointStack(cdk.Stack):
-    def __init__(self, app: cdk.App, id: str, *, model_name: str=None, repo_name: str=None, **kwargs) -> None:
+    def __init__(self, app: cdk.App, id: str, *, model_name: str=None, **kwargs) -> None:
         super().__init__(app, id, **kwargs)
         
         bucket_name = cdk.CfnParameter(
