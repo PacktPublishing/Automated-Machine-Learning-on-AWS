@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import os
-from aws_cdk import core as cdk
+import aws_cdk as cdk
 from abalone_data_pipeline.abalone_data_pipeline_stack import DataPipelineStack
 
 MODEL = "abalone"

@@ -1,7 +1,7 @@
 import os
 import aws_cdk.aws_codecommit as codecommit
 import aws_cdk.aws_codebuild as codebuild
-import aws_cdk.core as cdk
+import aws_cdk as cdk
 import aws_cdk.aws_s3 as s3
 import aws_cdk.aws_ssm as ssm
 import aws_cdk.aws_s3_deployment as s3_deployment
@@ -9,9 +9,10 @@ import aws_cdk.aws_iam as iam
 import aws_cdk.aws_glue as glue
 import aws_cdk.aws_lambda as lambda_
 import aws_cdk.aws_events_targets as targets
+from constructs import Construct
 
 class DataPipelineStack(cdk.Stack):
-    def __init__(self, scope: cdk.Construct, id: str, *, airflow_environment_name: str=None, model_name: str=None, repo_name: str=None, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, *, airflow_environment_name: str=None, model_name: str=None, repo_name: str=None, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
         
         code_repo = codecommit.Repository.from_repository_name(
@@ -86,10 +87,13 @@ class DataPipelineStack(cdk.Stack):
         )
         data_bucket.grant_read_write(glue_role)
 
-        glue_catalog = glue.Database(
+        glue_catalog = glue.CfnDatabase(
             self,
             "GlueDatabase",
-            database_name=f"{model_name}_new"
+            catalog_id=cdk.Aws.ACCOUNT_ID,
+            database_input=glue.CfnDatabase.DatabaseInputProperty(
+                name=f"{model_name}_new"
+            )
         )
 
         glue_crawler = glue.CfnCrawler(
@@ -97,7 +101,7 @@ class DataPipelineStack(cdk.Stack):
             "GlueCrawler",
             name=f"{model_name}-crawler",
             role=glue_role.role_arn,
-            database_name=glue_catalog.database_name,
+            database_name=glue_catalog.ref,
             targets={
                 "s3Targets": [
                     {
@@ -131,7 +135,7 @@ class DataPipelineStack(cdk.Stack):
             ),
             default_arguments={
                 "--job-language": "python",
-                "--GLUE_CATALOG": glue_catalog.database_name,
+                "--GLUE_CATALOG": glue_catalog.ref,
                 "--S3_BUCKET": data_bucket.bucket_name,
                 "--S3_INPUT_KEY_PREFIX": f"{model_name}_data/raw/abalone.data",
                 "--S3_OUTPUT_KEY_PREFIX": f"{model_name}_data",
