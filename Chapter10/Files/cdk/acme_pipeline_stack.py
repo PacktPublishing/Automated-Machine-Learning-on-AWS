@@ -1,12 +1,13 @@
-import aws_cdk.core as cdk
+import aws_cdk as cdk
 import aws_cdk.aws_codecommit as codecommit
 import aws_cdk.aws_s3 as s3
 import aws_cdk.pipelines as pipelines
 import aws_cdk.aws_ssm as ssm
+from constructs import Construct
 
 class PipelineStack(cdk.Stack):
 
-    def __init__(self, scope: cdk.Construct, id: str, *, model_name: str=None, group_name: str=None, repo_name: str=None, feature_group: str=None, threshold: float=None, cdk_version: str=None, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, *, model_name: str=None, group_name: str=None, repo_name: str=None, feature_group: str=None, threshold: float=None, cdk_version: str=None, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         self.code_repo = codecommit.Repository(

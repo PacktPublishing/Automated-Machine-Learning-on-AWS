@@ -1,5 +1,5 @@
 import os
-import aws_cdk.core as cdk
+import aws_cdk as cdk
 import aws_cdk.aws_s3 as s3
 import aws_cdk.aws_s3_deployment as s3_deployment
 import aws_cdk.aws_ecr as ecr
@@ -9,13 +9,13 @@ import aws_cdk.aws_lambda as lambda_
 import aws_cdk.custom_resources as cr
 import aws_cdk.aws_stepfunctions as sfn
 import aws_cdk.aws_stepfunctions_tasks as tasks
-import aws_cdk.aws_ec2 as ec2
 import aws_cdk.aws_ssm as ssm
+from constructs import Construct
 
 
 class MLWorkflowStack(cdk.Stack):
 
-    def __init__(self, scope: cdk.Construct, id: str, *, group_name: str=None, threshold: float=None, data_bucket_name: str=None, **kwargs):
+    def __init__(self, scope: Construct, id: str, *, group_name: str=None, threshold: float=None, data_bucket_name: str=None, **kwargs):
         super().__init__(scope, id, **kwargs)
 
         data_bucket = s3.Bucket.from_bucket_name(

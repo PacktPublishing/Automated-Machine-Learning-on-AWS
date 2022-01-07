@@ -1,5 +1,5 @@
 import os
-import aws_cdk.core as cdk
+import aws_cdk as cdk
 import aws_cdk.aws_s3 as s3
 import aws_cdk.aws_ssm as ssm
 import aws_cdk.aws_s3_deployment as s3_deployment
@@ -7,10 +7,11 @@ import aws_cdk.aws_ec2 as ec2
 import aws_cdk.aws_iam as iam
 import aws_cdk.aws_mwaa as mwaa
 import aws_cdk.aws_lambda as lambda_
+from constructs import Construct
 
 
 class DataWorkflowStack(cdk.Stack):
-    def __init__(self, scope: cdk.Construct, id: str, *, airflow_environment_name: str=None, data_bucket_name: str=None, pipeline_name: str=None, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, *, airflow_environment_name: str=None, data_bucket_name: str=None, pipeline_name: str=None, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         data_bucket = s3.Bucket.from_bucket_name(
@@ -151,7 +152,7 @@ class DataWorkflowStack(cdk.Stack):
                 ),
                 ec2.SubnetConfiguration(
                     name="AirflowPrivateSubnet",
-                    subnet_type=ec2.SubnetType.PRIVATE,
+                    subnet_type=ec2.SubnetType.PRIVATE_WITH_NAT,
                     cidr_mask=24
                 )
             ],

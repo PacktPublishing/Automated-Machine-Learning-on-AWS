@@ -1,10 +1,11 @@
-import aws_cdk.core as cdk
+import aws_cdk as cdk
 import aws_cdk.aws_codecommit as codecommit
 import aws_cdk.aws_s3 as s3
 import aws_cdk.pipelines as pipelines
 import aws_cdk.aws_ssm as ssm
 import aws_cdk.aws_ecr as ecr
 import aws_cdk.aws_iam as iam
+from constructs import Construct
 
 
 from .stacks.ml_workflow_stack import MLWorkflowStack
@@ -14,7 +15,7 @@ from .stacks.data_workflow_stack import DataWorkflowStack
 
 class MLWorkflowStage(cdk.Stage):
     
-    def __init__(self, scope: cdk.Construct, id: str, *, group_name: str, threhold: float, data_bucket_name: str, feature_group_name: str, **kwargs):
+    def __init__(self, scope: Construct, id: str, *, group_name: str, threhold: float, data_bucket_name: str, feature_group_name: str, **kwargs):
         super().__init__(scope, id, **kwargs)
         ml_workflow_stack = MLWorkflowStack(
             self,
@@ -28,7 +29,7 @@ class MLWorkflowStage(cdk.Stage):
 
 class TestApplicationStage(cdk.Stage):
 
-    def __init__(self, scope: cdk.Construct, id: str, *, model_name: str, **kwargs):
+    def __init__(self, scope: Construct, id: str, *, model_name: str, **kwargs):
         super().__init__(scope, id, **kwargs)
         test_stack = TestApplicaitonStack(self, "TestApplicaitonStack", model_name=model_name)
         self.cdn_output = test_stack.cdn_output
@@ -36,7 +37,7 @@ class TestApplicationStage(cdk.Stage):
 
 
 class ProductionApplicationStage(cdk.Stage):
-    def __init__(self, scope: cdk.Construct, id: str, *, model_name: str, **kwargs):
+    def __init__(self, scope: Construct, id: str, *, model_name: str, **kwargs):
         super().__init__(scope, id, **kwargs)
         production_stack = ProductionApplicaitonStack(self, "ProdApplicationStack", model_name=model_name)
         self.cdn_output = production_stack.cdn_output
@@ -44,14 +45,14 @@ class ProductionApplicationStage(cdk.Stage):
 
 
 class DataWorkflowStage(cdk.Stage):
-    def __init__(self, scope: cdk.Construct, id: str, *, airflow_environment_name: str, data_bucket_name: str, pipeline_name: str, **kwargs):
+    def __init__(self, scope: Construct, id: str, *, airflow_environment_name: str, data_bucket_name: str, pipeline_name: str, **kwargs):
         super().__init__(scope, id, **kwargs)
         data_workflow_stack = DataWorkflowStack(self, "DataWorkflowStack", airflow_environment_name=airflow_environment_name, data_bucket_name=data_bucket_name, pipeline_name=pipeline_name)
 
 
 class PipelineStack(cdk.Stack):
 
-    def __init__(self, scope: cdk.Construct, id: str, *, model_name: str=None, group_name: str=None, repo_name: str=None, feature_group: str=None, threshold: float=None, cdk_version: str=None, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, *, model_name: str=None, group_name: str=None, repo_name: str=None, feature_group: str=None, threshold: float=None, cdk_version: str=None, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         self.code_repo = codecommit.Repository(

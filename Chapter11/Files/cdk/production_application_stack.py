@@ -1,20 +1,23 @@
 import os
 from time import strftime
-import aws_cdk.core as cdk
+import aws_cdk as cdk
 import aws_cdk.aws_s3 as s3
 import aws_cdk.aws_cloudfront as cloudfront
 import aws_cdk.aws_iam as iam
 import aws_cdk.aws_s3_deployment as s3_deployment
 import aws_cdk.aws_lambda as lambda_
-import aws_cdk.aws_apigatewayv2 as httpgw
-import aws_cdk.aws_apigatewayv2_integrations as integrations
+# import aws_cdk.aws_apigatewayv2 as httpgw
+import aws_cdk.aws_apigatewayv2_alpha as httpgw # See https://aws.amazon.com/blogs/developer/experimental-construct-libraries-are-now-available-in-aws-cdk-v2/
+# import aws_cdk.aws_apigatewayv2_integrations as integrations
+import aws_cdk.aws_apigatewayv2_integrations_alpha as integrations # See https://aws.amazon.com/blogs/developer/experimental-construct-libraries-are-now-available-in-aws-cdk-v2/
 import aws_cdk.aws_sagemaker as sagemaker
 import aws_cdk.custom_resources as cr
 import aws_cdk.aws_applicationautoscaling as autoscaling
+from constructs import Construct
 
 class ProductionApplicaitonStack(cdk.Stack):
 
-    def __init__(self, scope: cdk.Construct, id: str, *, model_name: str=None, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, *, model_name: str=None, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         endpoint_name = f"{model_name}-prod-endpoint"
@@ -222,12 +225,19 @@ class ProductionApplicaitonStack(cdk.Stack):
         api.add_routes(
             path="/api/contact",
             methods=[httpgw.HttpMethod.POST],
-            integration=integrations.LambdaProxyIntegration(handler=form_lambda)
+            integration=integrations.HttpLambdaIntegration(
+                "ContactForm-Integration",
+                handler=form_lambda)
+            # integration=integrations.LambdaProxyIntegration(handler=form_lambda)
         )
         api.add_routes(
             path="/api/predict",
             methods=[httpgw.HttpMethod.POST],
-            integration=integrations.LambdaProxyIntegration(handler=form_lambda)
+            integration=integrations.HttpLambdaIntegration(
+                "PredictForm-Integration",
+                handler=form_lambda
+            )
+            # integration=integrations.LambdaProxyIntegration(handler=form_lambda)
         )
 
         cdn = cloudfront.CloudFrontWebDistribution(

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import os
-from aws_cdk import core as cdk
+import aws_cdk as cdk
 from acme_web_application.acme_pipeline_stack import PipelineStack
 
 MODEL = "abalone"
