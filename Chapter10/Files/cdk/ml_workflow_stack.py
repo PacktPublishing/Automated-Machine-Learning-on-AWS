@@ -15,7 +15,7 @@ from constructs import Construct
 
 class MLWorkflowStack(cdk.Stack):
 
-    def __init__(self, scope: Construct, id: str, *, group_name: str=None, threshold: float=None, data_bucket_name: str=None, **kwargs):
+    def __init__(self, scope: Construct, id: str, *, group_name: str=None, threshold: float=None, data_bucket_name: str=None, feature_group_name: str=None, **kwargs):
         super().__init__(scope, id, **kwargs)
 
         data_bucket = s3.Bucket.from_bucket_name(
@@ -68,7 +68,7 @@ class MLWorkflowStack(cdk.Stack):
         registry_creator.add_to_role_policy(
             iam.PolicyStatement(
                 actions=[
-                    "sagemaker:*ModelPackage"
+                    "sagemaker:*ModelPackage*"
                 ],
                 effect=iam.Effect.ALLOW,
                 resources=["*"]
@@ -199,17 +199,6 @@ class MLWorkflowStack(cdk.Stack):
                             'S3DataDistributionType': 'FullyReplicated',
                             'S3CompressionType': 'None'
                         }
-                    },
-                    {
-                        'InputName': 'data',
-                        'S3Input': {
-                            'S3Uri.$': '$.createExperiment.Payload.processingDataInput',
-                            'LocalPath': '/opt/ml/processing/input/data',
-                            'S3DataType': 'S3Prefix',
-                            'S3InputMode': 'File',
-                            'S3DataDistributionType': 'FullyReplicated',
-                            'S3CompressionType': 'None'
-                        }
                     }
                 ],
                 'ProcessingOutputConfig': {
@@ -242,7 +231,7 @@ class MLWorkflowStack(cdk.Stack):
                 'Environment': {
                     'MODEL_NAME.$': '$.input.model_name',
                     'AWS_REGION': cdk.Aws.REGION,
-                    'GROUP_NAME': group_name
+                    'FEATURE_GROUP_NAME': feature_group_name
                 },
                 'ExperimentConfig':{
                     'ExperimentName.$': '$.createExperiment.Payload.experimentName',

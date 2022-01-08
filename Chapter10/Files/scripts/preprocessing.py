@@ -25,7 +25,7 @@ def get_featurestore_params(feature_group_name):
 if __name__ == "__main__":
     base_dir = "/opt/ml/processing"
     print('Loading "raw" data')
-    fg_name = os.environ["GROUP_NAME"]
+    fg_name = os.environ["FEATURE_GROUP_NAME"]
     print(f"Using Feature Group: {fg_name}")
     columns = ["rings", "length", "diameter", "height", "whole_weight", "shucked_weight", "viscera_weight", "shell_weight", "sex_f", "sex_i", "sex_m"]
     database, table = get_featurestore_params(fg_name)

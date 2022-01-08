@@ -212,7 +212,7 @@ class TestApplicaitonStack(cdk.Stack):
         self.cdn_output = cdk.CfnOutput(
             self,
             "CloudFront-URL",
-            value=f"http://{cdn.domain_name}"
+            value=f"http://{cdn.distribution_domain_name}"
         )
 
         self.api_output = cdk.CfnOutput(
