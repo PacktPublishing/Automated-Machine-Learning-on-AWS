@@ -6,10 +6,8 @@ import aws_cdk.aws_cloudfront as cloudfront
 import aws_cdk.aws_iam as iam
 import aws_cdk.aws_s3_deployment as s3_deployment
 import aws_cdk.aws_lambda as lambda_
-# import aws_cdk.aws_apigatewayv2 as httpgw
-import aws_cdk.aws_apigatewayv2_alpha as httpgw # See https://aws.amazon.com/blogs/developer/experimental-construct-libraries-are-now-available-in-aws-cdk-v2/
-# import aws_cdk.aws_apigatewayv2_integrations as integrations
-import aws_cdk.aws_apigatewayv2_integrations_alpha as integrations # See https://aws.amazon.com/blogs/developer/experimental-construct-libraries-are-now-available-in-aws-cdk-v2/
+import aws_cdk.aws_apigatewayv2_alpha as httpgw
+import aws_cdk.aws_apigatewayv2_integrations_alpha as integrations
 import aws_cdk.aws_sagemaker as sagemaker
 import aws_cdk.custom_resources as cr
 import aws_cdk.aws_applicationautoscaling as autoscaling
@@ -227,8 +225,8 @@ class ProductionApplicaitonStack(cdk.Stack):
             methods=[httpgw.HttpMethod.POST],
             integration=integrations.HttpLambdaIntegration(
                 "ContactForm-Integration",
-                handler=form_lambda)
-            # integration=integrations.LambdaProxyIntegration(handler=form_lambda)
+                handler=form_lambda
+            )
         )
         api.add_routes(
             path="/api/predict",
@@ -237,7 +235,6 @@ class ProductionApplicaitonStack(cdk.Stack):
                 "PredictForm-Integration",
                 handler=form_lambda
             )
-            # integration=integrations.LambdaProxyIntegration(handler=form_lambda)
         )
 
         cdn = cloudfront.CloudFrontWebDistribution(

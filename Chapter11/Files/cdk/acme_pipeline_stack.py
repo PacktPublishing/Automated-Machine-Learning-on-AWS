@@ -15,13 +15,13 @@ from .stacks.data_workflow_stack import DataWorkflowStack
 
 class MLWorkflowStage(cdk.Stage):
     
-    def __init__(self, scope: Construct, id: str, *, group_name: str, threhold: float, data_bucket_name: str, feature_group_name: str, **kwargs):
+    def __init__(self, scope: Construct, id: str, *, group_name: str, threshold: float, data_bucket_name: str, feature_group_name: str, **kwargs):
         super().__init__(scope, id, **kwargs)
         ml_workflow_stack = MLWorkflowStack(
             self,
             "MLWorkflowStack",
             group_name=group_name,
-            threshold=threhold,
+            threshold=threshold,
             data_bucket_name=data_bucket_name,
             feature_group_name=feature_group_name
         )
@@ -104,7 +104,7 @@ class PipelineStack(cdk.Stack):
             "Build-MLWorkflow",
             data_bucket_name=self.data_bucket.bucket_name,
             group_name=group_name,
-            threhold=threshold,
+            threshold=threshold,
             feature_group_name=feature_group
         )
 

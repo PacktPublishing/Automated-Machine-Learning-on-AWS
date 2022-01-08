@@ -7,7 +7,7 @@ MODEL = "abalone"
 MODEL_GROUP = f"{MODEL.capitalize()}PackageGroup"
 FEATURE_GROUP = "PLACEHOLDER"
 CODECOMMIT_REPOSITORY = "acme-web-application"
-CDK_VERSION = "<Add the version of the AWS CDK you are currently using>"
+CDK_VERSION = "2.3.0"
 QUALITY_THRESHOLD = 3.1
 
 app = cdk.App()
