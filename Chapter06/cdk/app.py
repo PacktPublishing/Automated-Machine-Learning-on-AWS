@@ -5,7 +5,6 @@ import aws_cdk as cdk
 from abalone_cicd_pipeline.abalone_endpoint_stack import EndpointStack
 from abalone_cicd_pipeline.abalone_cicd_pipeline_stack import PipelineStack
 
-
 MODEL = "abalone"
 CODECOMMIT_REPOSITORY = "abalone-cicd-pipeline"
 CDK_VERSION = "2.3.0"
