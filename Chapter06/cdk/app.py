@@ -8,7 +8,7 @@ from abalone_cicd_pipeline.abalone_cicd_pipeline_stack import PipelineStack
 
 MODEL = "abalone"
 CODECOMMIT_REPOSITORY = "abalone-cicd-pipeline"
-CDK_VERSION = "<ENTER THE CDK VERSION>"
+CDK_VERSION = "2.3.0"
 
 app = cdk.App()
 

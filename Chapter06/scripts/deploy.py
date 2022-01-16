@@ -12,7 +12,6 @@ codepipeline_client = boto3.client("codepipeline")
 sagemaker_client = boto3.client("sagemaker")
 pipeline_name = os.environ["PIPELINE_NAME"]
 model_name = os.environ["MODEL_NAME"]
-#role_arn = os.environ["ROLE_ARN"]
 
 
 def get_execution_id(name=None, task=None):
@@ -35,8 +34,7 @@ if __name__ == "__main__":
     logger.info("Creating Stack Parameters")
     params = {
         "ExecutionId": execution_id,
-        "BucketName": os.environ["BUCKET_NAME"],
-        #"ExecutionRole": os.environ["ROLE_ARN"]
+        "BucketName": os.environ["BUCKET_NAME"]
     }
     try:
         with open(os.path.join(os.environ["CODEBUILD_SRC_DIR"], "output/params.json"), "w") as f:
