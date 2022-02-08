@@ -59,7 +59,7 @@ class ProductionApplicaitonStack(cdk.Stack):
 
         sagemaker_prod_role = iam.Role(
             self,
-            "SageMaker-TestRole",
+            "SageMaker-ProdRole",
             assumed_by=iam.CompositePrincipal(
                 iam.ServicePrincipal("sagemaker.amazonaws.com")
             ),
@@ -71,7 +71,7 @@ class ProductionApplicaitonStack(cdk.Stack):
 
         model = sagemaker.CfnModel(
             self,
-            "Test-Model",
+            "Prod-Model",
             execution_role_arn=sagemaker_prod_role.role_arn,
             primary_container=sagemaker.CfnModel.ContainerDefinitionProperty(
                 model_package_name=cr.AwsCustomResource(
