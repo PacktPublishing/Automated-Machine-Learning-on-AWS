@@ -47,9 +47,9 @@ With the following software and hardware list you can run all code files present
 
 | Chapter  | Software required                    | OS required                        |
 | -------- | ------------------------------------ | -----------------------------------|
-| 1-14	   | Python 3.7.10 (and above)            | Windows, Mac OS X, and Linux (Any) |
-| 1-14	   | AWS CLI 1.19.112 (and above)         | Windows, Mac OS X, and Linux (Any) |
-| 1-14	   | AWS CDK 2.3.0 (build beaa5b2)        | Windows, Mac OS X, and Linux (Any) |
+| 1-11	   | Python 3.7.10 (and above)            | Windows, Mac OS X, and Linux (Any) |
+| 1-11	   | AWS CLI 1.19.112 (and above)         | Windows, Mac OS X, and Linux (Any) |
+| 1-11	   | AWS CDK 2.3.0 (build beaa5b2)        | Windows, Mac OS X, and Linux (Any) |
 
 It is recommended that you use an AWS Cloud9 integrated development environment as
 it meets the software/hardware and operating system requirements
