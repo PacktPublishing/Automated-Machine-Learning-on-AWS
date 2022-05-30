@@ -121,7 +121,7 @@ class ProductionApplicaitonStack(cdk.Stack):
                     sagemaker.CfnEndpointConfig.CaptureOptionProperty(capture_mode="Input"),
                     sagemaker.CfnEndpointConfig.CaptureOptionProperty(capture_mode="Output")
                 ],
-                destination_s3_uri=f"s3://{logs_bucket}/endpoint-data-capture",
+                destination_s3_uri=f"s3://{logs_bucket.bucket_name}/endpoint-data-capture",
                 initial_sampling_percentage=100.0
             )
         )
