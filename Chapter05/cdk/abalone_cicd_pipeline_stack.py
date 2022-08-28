@@ -378,7 +378,7 @@ class PipelineStack(cdk.Stack):
                         "install": {
                             "runtime-versions": {
                                 "python": 3.8,
-                                "nodejs": 12
+                                "nodejs": 14
                             },
                             "commands": [
                                 "echo Updatimg build environment",
