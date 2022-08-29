@@ -32,6 +32,30 @@ class DataWorkflowStack(cdk.Stack):
             string_parameter_name="FeatureGroup"
         )
 
+        start_pipeline = lambda_.Function(
+            self,
+            "Release-Change",
+            handler="index.lambda_handler",
+            runtime=lambda_.Runtime.PYTHON_3_8,
+            code=lambda_.Code.from_asset(os.path.join(os.path.dirname(__file__), "../../lambda/releaseChange")),
+            environment={
+                "PIPELINE_NAME": pipeline_name
+            },
+            memory_size=128,
+            timeout=cdk.Duration.seconds(60)
+        )
+        start_pipeline.add_to_role_policy(
+            iam.PolicyStatement(
+                actions=[
+                    "codepipeline:StartPipelineExecution"
+                ],
+                effect=iam.Effect.ALLOW,
+                resources=[
+                    f"arn:aws:codepipeline:{cdk.Aws.REGION}:{cdk.Aws.ACCOUNT_ID}:{pipeline_name}"
+                ]
+            )
+        )
+
         airflow_policy_document = {
             "Version": "2012-10-17",
             "Statement": [
@@ -117,6 +141,13 @@ class DataWorkflowStack(cdk.Stack):
                             ]
                         }
                     }
+                },
+                {
+                    "Effect": "Allow",
+                    "Action": [
+                        "lambda:InvokeFunction"
+                    ],
+                    "Resource": f"{start_pipeline.function_arn}*"
                 }
             ]
         }
@@ -179,7 +210,7 @@ class DataWorkflowStack(cdk.Stack):
             subnet_ids=airflow_subnet_ids
         )
         
-        airflow_emvironment = mwaa.CfnEnvironment(
+        airflow_environment = mwaa.CfnEnvironment(
             self,
             "Airflow-Environment",
             name=airflow_environment_name,
@@ -214,32 +245,7 @@ class DataWorkflowStack(cdk.Stack):
             destination_key_prefix="airflow",
             retain_on_delete=False
         )
-        airflow_emvironment.node.add_dependency(artifacts_deployment)
-
-        start_pipeline = lambda_.Function(
-            self,
-            "Release-Change",
-            handler="index.lambda_handler",
-            runtime=lambda_.Runtime.PYTHON_3_8,
-            code=lambda_.Code.from_asset(os.path.join(os.path.dirname(__file__), "../../lambda/releaseChange")),
-            environment={
-                "PIPELINE_NAME": pipeline_name
-            },
-            memory_size=128,
-            timeout=cdk.Duration.seconds(60)
-        )
-        start_pipeline.add_to_role_policy(
-            iam.PolicyStatement(
-                actions=[
-                    "codepipeline:StartPipelineExecution"
-                ],
-                effect=iam.Effect.ALLOW,
-                resources=[
-                    f"arn:aws:codepipeline:{cdk.Aws.REGION}:{cdk.Aws.ACCOUNT_ID}:{pipeline_name}"
-                ]
-            )
-        )
-        start_pipeline.grant_invoke(airflow_role)
+        airflow_environment.node.add_dependency(artifacts_deployment)
 
         lambda_param = ssm.StringParameter(
             self,
