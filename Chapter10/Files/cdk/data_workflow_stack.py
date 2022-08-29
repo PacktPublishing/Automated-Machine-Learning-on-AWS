@@ -128,9 +128,9 @@ class DataWorkflowStack(cdk.Stack):
                 iam.ServicePrincipal("airflow.amazonaws.com"),
                 iam.ServicePrincipal("airflow-env.amazonaws.com")
             ),
-            inline_policies=[
-                iam.PolicyDocument.from_json(airflow_policy_document)
-            ],
+            inline_policies={
+                "AirflowRole-InlinePolicy": iam.PolicyDocument.from_json(airflow_policy_document)
+            },
             path="/service-role/"
         )
         airflow_role.add_managed_policy(policy=iam.ManagedPolicy.from_aws_managed_policy_name("AmazonSageMakerFullAccess"))
