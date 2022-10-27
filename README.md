@@ -72,3 +72,7 @@ evangelizing the AWS ML services and shares best practices through forums such a
 AWS blogs, whitepapers, reference architectures, and public-speaking events. He has
 also actively been involved in leading, developing, and supporting an internal AWS
 community of MLOps-related subject matter experts.
+### Download a free PDF
+
+ <i>If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost.<br>Simply click on the link to claim your free PDF.</i>
+<p align="center"> <a href="https://packt.link/free-ebook/9781801811828">https://packt.link/free-ebook/9781801811828 </a> </p>
