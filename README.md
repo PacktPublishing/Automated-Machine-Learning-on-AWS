@@ -19,6 +19,8 @@ This book covers the following exciting features:
 * Leverage the Amazon SageMaker Feature Store to automate the machine learning software development life cycle (MLSDLC)
 * Discover how to use Amazon MWAA for a data-centric ML process
 
+For supplemental content that covers updates to AWS capabilities, such as SageMaker Pipelines, as well as advanced features for production ML model monitoring, take a look at [www.automatedmlonaws.com](https://www.automatedmlonaws.com/).
+
 If you feel this book is for you, get your [copy](https://www.amazon.com/dp/1801811822) today!
 
 <a href="https://www.packtpub.com/?utm_source=github&utm_medium=banner&utm_campaign=GitHubBanner"><img src="https://raw.githubusercontent.com/PacktPublishing/GitHub/master/GitHub.png" 
