@@ -68,7 +68,8 @@ class MLWorkflowStack(cdk.Stack):
         registry_creator.add_to_role_policy(
             iam.PolicyStatement(
                 actions=[
-                    "sagemaker:*ModelPackage*"
+                    "sagemaker:*ModelPackage*",
+                    "sagemaker:*Tags"
                 ],
                 effect=iam.Effect.ALLOW,
                 resources=["*"]
